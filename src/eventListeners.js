@@ -52,11 +52,8 @@ export default class EventListeners {
       list[index]._tasks.push(task);
       localStorage.setItem(parent, JSON.stringify(list));
 
-      //Display tasks after submit
-      this.ui.displayTasks(index, parent);
-      this.ui.displaySideBar();
-      this.handleActiveNav();
-      this.toggleDropDownMenu();
+      this.ui.reloadPage(index, parent);
+      this.toggleUserNameModal();
 
       // Close form after submit
       form.classList.add("toggle");
@@ -140,10 +137,8 @@ export default class EventListeners {
     const submitOption = document.querySelector(".submit__option");
 
     let userNameEl = document.querySelector(".header-user-name");
-
     //Remove exclamation mark
     let userName = userNameEl.textContent.replace(/!/g, "");
-
     let isPopUpVisible = false;
 
     editUserButton.addEventListener("click", (event) => {

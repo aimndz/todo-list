@@ -19,6 +19,7 @@ export default class UI {
   addEventListeners() {
     const eventListeners = new EventListeners(this.storage);
     eventListeners.handleActiveNav();
+    eventListeners.toggleDropDownMenu();
   }
 
   //DISPLAY METHODS
@@ -40,6 +41,12 @@ export default class UI {
     tasks = selectedToDoList ? selectedToDoList._tasks : [];
 
     this.displayTasksFromArray(tasks);
+  }
+
+  reloadPage(index, parent) {
+    this.displayTasks(index, parent);
+    this.displaySideBar();
+    this.addEventListeners();
   }
 
   displayTasksFromArray(tasks) {
@@ -70,6 +77,7 @@ export default class UI {
     mainTitle.innerHTML = "";
 
     const userLocal = localStorage.getItem("user");
+
     let userName;
 
     if (userLocal) {
@@ -90,7 +98,6 @@ export default class UI {
     );
 
     mainTitle.appendChild(header);
-
     mainContainer.insertBefore(mainTitle, tasksContainer);
   }
 
