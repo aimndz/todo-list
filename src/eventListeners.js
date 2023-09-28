@@ -57,6 +57,7 @@ export default class EventListeners {
       this.ui.displayTasks(index, parent);
       this.ui.displaySideBar();
       this.handleActiveNav();
+      this.toggleDropDownMenu();
 
       // Close form after submit
       form.classList.add("toggle");
