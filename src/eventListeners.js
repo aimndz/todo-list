@@ -13,13 +13,12 @@ export default class EventListeners {
     this.handlePriorityInput();
     this.handleAddTaskForm();
     this.handleAddTaskButton();
+    this.handleActiveNav();
 
     this.toggleSideBar();
     this.toggleDropDownMenu();
     this.toggleAddListForm();
-    this.handleActiveNav();
     this.toggleDeleteModal();
-    this.toggleInputDate();
     this.toggleUserNameModal();
   }
 
@@ -132,16 +131,6 @@ export default class EventListeners {
   toggleForm() {
     const addTaskForm = document.querySelector(".add-task-form");
     addTaskForm.classList.toggle("toggle");
-  }
-
-  toggleInputDate() {
-    const dueDateInputContainer = document.querySelector(
-      ".input-duedate-container"
-    );
-    const dueDateInput =
-      dueDateInputContainer.querySelector("input[type='date']");
-
-    dueDateInputContainer.addEventListener("click", () => {});
   }
 
   toggleUserNameModal() {

@@ -16,6 +16,11 @@ export default class UI {
     this.initActiveNav();
   }
 
+  addEventListeners() {
+    const eventListeners = new EventListeners(this.storage);
+    eventListeners.handleActiveNav();
+  }
+
   //DISPLAY METHODS
   displayTasks(index, parent) {
     const toDoList = JSON.parse(localStorage.getItem(parent));
@@ -102,7 +107,7 @@ export default class UI {
     this.updateContainerContent(yourListContainer, yourList);
     this.updateContainerContent(completedContainer, completedList);
 
-    new EventListeners(this.storage).handleActiveNav();
+    this.addEventListeners();
   }
 
   updateContainerContent(container, items) {
