@@ -77,7 +77,6 @@ export default class Utils {
 
       if (index >= 0 && index < listItems.length) {
         listItems[index].classList.add("active");
-        console.log(listItems[index]);
       }
     }
   }

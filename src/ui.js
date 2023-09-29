@@ -31,9 +31,15 @@ export default class UI {
     const selectedToDoList = toDoList[index];
 
     let tasks;
+
     if (parent === "scheduleLists" && index === 0) {
       tasks = this.storage.getAllTasks();
+      this.displayTasksFromArray(tasks);
+      return;
+    }
 
+    if (parent === "scheduleLists" && index === 1) {
+      tasks = this.storage.getTodayTasks();
       this.displayTasksFromArray(tasks);
       return;
     }

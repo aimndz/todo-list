@@ -111,4 +111,19 @@ export default class Storage {
 
     return combinedTasks;
   }
+
+  getTodayTasks() {
+    const allTasks = this.getAllTasks();
+    if (!allTasks || allTasks.length === 0) {
+      return [];
+    }
+
+    const today = new Date().toISOString().slice(0, 10); // Get today's date in YYYY-MM-DD format
+
+    const todayTasks = allTasks.filter((task) => {
+      return task._dueDate === today;
+    });
+
+    return todayTasks;
+  }
 }
