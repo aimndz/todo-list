@@ -1,6 +1,6 @@
 import Utils from "./utils";
 import EventListeners from "./eventListeners";
-import { parseISO, format } from "date-fns";
+import { format } from "date-fns";
 
 export default class UI {
   constructor(storage) {
@@ -60,10 +60,7 @@ export default class UI {
     tasksContainer.innerHTML = "";
 
     tasks.forEach((task) => {
-      const date = task._dueDate;
-
-      const parsedDate = parseISO(date);
-      const formattedDate = format(parsedDate, "MMM dd");
+      const formattedDate = this.utils.formatDate(task._dueDate);
 
       const taskElement = this.createTask(
         task._title,

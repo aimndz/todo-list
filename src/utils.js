@@ -1,6 +1,7 @@
 import UI from "./ui";
 import EventListeners from "./eventListeners";
 import TodoList from "./todolist";
+import { parseISO, format, isToday } from "date-fns";
 
 export default class Utils {
   constructor(storage) {
@@ -78,6 +79,15 @@ export default class Utils {
       if (index >= 0 && index < listItems.length) {
         listItems[index].classList.add("active");
       }
+    }
+  }
+
+  formatDate(date) {
+    if (isToday(new Date(date))) {
+      return "Today";
+    } else {
+      const parsedDate = parseISO(date);
+      return format(parsedDate, "MMM dd");
     }
   }
 }
