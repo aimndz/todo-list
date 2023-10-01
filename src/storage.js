@@ -126,4 +126,33 @@ export default class Storage {
 
     return todayTasks;
   }
+
+  getThisWeekTasks() {
+    const allTasks = this.getAllTasks();
+    if (!allTasks || allTasks.length === 0) {
+      return [];
+    }
+
+    const today = new Date();
+
+    // Calculate the start date of the current week (Sunday)
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay());
+
+    // Calculate the end date of the current week (Saturday)
+    const endOfWeek = new Date(today);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+    // Convert start and end dates to ISO date strings in YYYY-MM-DD format
+    const startDateString = startOfWeek.toISOString().slice(0, 10);
+    const endDateString = endOfWeek.toISOString().slice(0, 10);
+
+    // Filter tasks that have due dates within the current week
+    const thisWeekTasks = allTasks.filter((task) => {
+      const taskDueDate = task._dueDate;
+      return taskDueDate >= startDateString && taskDueDate <= endDateString;
+    });
+
+    return thisWeekTasks;
+  }
 }

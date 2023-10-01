@@ -45,6 +45,12 @@ export default class UI {
       return;
     }
 
+    if (parent === "scheduleLists" && index === 2) {
+      tasks = this.storage.getThisWeekTasks();
+      this.displayTasksFromArray(tasks);
+      return;
+    }
+
     tasks = selectedToDoList ? selectedToDoList._tasks : [];
 
     this.displayTasksFromArray(tasks);
