@@ -1,6 +1,7 @@
 import Utils from "./utils";
 import EventListeners from "./eventListeners";
 import { format } from "date-fns";
+import { is } from "date-fns/locale";
 
 export default class UI {
   constructor(storage) {
@@ -59,14 +60,17 @@ export default class UI {
     const tasksContainer = document.querySelector(".tasks-container");
     tasksContainer.innerHTML = "";
 
-    tasks.forEach((task) => {
+    tasks.forEach((task, index) => {
       const formattedDate = this.utils.formatDate(task._dueDate);
 
       const taskElement = this.createTask(
         task._title,
         task._description,
         formattedDate,
-        task._priority
+        task._priority,
+        task._isCheck,
+        task._id,
+        task._parent
       );
       tasksContainer.append(taskElement);
     });
@@ -190,10 +194,12 @@ export default class UI {
     return mainTitleWrapper;
   }
 
-  createTask(title, description, dueDate, priority) {
+  createTask(title, description, dueDate, priority, isCheck, id, parent) {
     //Task Container
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("task", priority);
+    taskContainer.setAttribute("data-index", id);
+    taskContainer.setAttribute("data-parent", parent);
 
     //CheckBox Container
     const checkBoxContainer = document.createElement("div");
@@ -201,7 +207,12 @@ export default class UI {
 
     //CheckBox Content
     const checkBox = document.createElement("div");
-    checkBox.classList.add("check-box", "check");
+
+    if (isCheck) {
+      checkBox.classList.add("check-box", "check");
+    } else {
+      checkBox.classList.add("check-box");
+    }
 
     checkBoxContainer.appendChild(checkBox);
 

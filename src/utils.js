@@ -52,6 +52,7 @@ export default class Utils {
   getActiveNav() {
     const active = document.querySelector(".nav-list.active");
     const dataIndex = active.getAttribute("data-index");
+
     return dataIndex;
   }
 

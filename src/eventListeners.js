@@ -14,6 +14,7 @@ export default class EventListeners {
     this.handleAddTaskForm();
     this.handleAddTaskButton();
     this.handleActiveNav();
+    this.handleTaskDone();
 
     this.toggleSideBar();
     this.toggleDropDownMenu();
@@ -46,8 +47,18 @@ export default class EventListeners {
 
       //Add task on list
       const list = JSON.parse(localStorage.getItem(parent));
+      const listName = list[index]._name;
 
-      const task = new Task(title, description, dueDate, priority);
+      const id = list[index]._tasks.length - 1 + 1;
+
+      const task = new Task(
+        title,
+        description,
+        dueDate,
+        priority,
+        listName,
+        id
+      );
 
       list[index]._tasks.push(task);
       localStorage.setItem(parent, JSON.stringify(list));
@@ -59,6 +70,8 @@ export default class EventListeners {
       form.classList.add("toggle");
       addTask.classList.add("toggle");
       this.utils.setActiveNav(parent, index);
+      this.handleTaskDone();
+
       form.reset();
     });
   }
@@ -80,6 +93,7 @@ export default class EventListeners {
         this.ui.displayHeader(listName);
         this.ui.displayTasks(index, parent);
         this.toggleDropDownMenu();
+        this.handleTaskDone();
       });
     });
   }
@@ -122,6 +136,33 @@ export default class EventListeners {
       //add "add task" when click
       addTask.classList.add("toggle");
       this.utils.inputFocus(inputTitle);
+    });
+  }
+
+  handleTaskDone() {
+    const checkboxContainers = document.querySelectorAll(
+      ".check-box-container"
+    );
+    checkboxContainers.forEach((container) => this.toggleCheckBox(container));
+  }
+
+  toggleCheckBox(container) {
+    container.addEventListener("click", () => {
+      const checkbox = container.querySelector(".check-box");
+      const index = container.parentNode.getAttribute("data-index");
+      const parent = container.parentNode.getAttribute("data-parent");
+      const local = JSON.parse(localStorage.getItem("yourLists"));
+      const matchingObject = local.find((item) => item._name === parent);
+      const task = matchingObject._tasks[index];
+
+      if (task._isCheck) {
+        task._isCheck = false;
+      } else {
+        task._isCheck = true;
+      }
+
+      localStorage.setItem("yourLists", JSON.stringify(local));
+      checkbox.classList.toggle("check");
     });
   }
 
